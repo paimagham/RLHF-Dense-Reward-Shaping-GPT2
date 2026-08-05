@@ -1,0 +1,11 @@
+torch
+transformers
+trl
+datasets
+accelerate
+wandb
+numpy
+pandas
+scikit-learn
+matplotlib
+huggingface_hub
