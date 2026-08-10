@@ -1,11 +1,19 @@
-torch
-transformers
-trl
-datasets
-accelerate
+# Tested on Google Colab (T4 GPU), matching the original training environment.
+# After installing, RESTART THE RUNTIME before importing.
+# Note: newer Colab/Kaggle base images ship CUDA and package versions that
+# conflict with this stack. The pins below reflect the environment the results
+# were produced in; a matched environment (or the Docker image) is needed to run.
+torch==2.2.2
+trl==0.8.6
+transformers==4.40.0
+accelerate==0.29.3
+huggingface-hub==0.22.2
+tokenizers==0.19.1
+safetensors==0.4.3
+datasets==2.19.0
+numpy<2
+pyarrow_hotfix
+scipy
 wandb
-numpy
-pandas
-scikit-learn
-matplotlib
-huggingface_hub
+sentencepiece
+ 
