@@ -83,13 +83,15 @@ Once these were in place, the reward curve finally began to climb — and the re
 
 The dense reward clearly wins:
 
-| Measure | Sparse (feedback at end) | Dense (feedback every step) |
-| --- | --- | --- |
-| How often feedback appeared | **0.04%** of generations | every single step |
-| Did the model improve? | No — stayed flat | Yes — improved steadily |
-| Average reward (50 unseen prompts) | −3.603 | **−3.457** (+0.147) |
-| Beat the original GPT-2 on… | — | **32 of 50 stories (64%)** |
-| Repetitive or gibberish text? | — | No — stays on topic |
+| Measure | Result | 
+| --- | --- |
+| How often the sparse reward fired| **0.04%** of generations (almost never)|
+| Did the sparse model improve in training?| No — stayed flat | 
+| Did the dense model improve in training?| Yes — it improved steadily | 
+| Held-out reward — original GPT-2| −3.603 |
+| Held-out reward — dense model| −3.457 (+0.147) |
+| Dense model beat original GPT-2 on| **32 of 50 stories (64%)** |
+| Repetitive or gibberish text?| No — dense stays on topic |
 
 The improvement is **modest but consistent** — exactly what you would expect from a model this small — and the reward-hacking checks confirm the model earns its higher scores honestly.
 
