@@ -98,7 +98,7 @@ The figure below shows six measurements of the training process over time. The c
 The exact per-seed training metrics are logged in Weights & Biases: https://wandb.ai/sp2984-northern-arizona-university/trl (dense runs: wandering-wood-271, deft-dew-272, clean-puddle-273; sparse runs: amber-dew-274, bumbling-vortex-275, faithful-pine-276; seeds 42/99/7, 90 steps each.)
 
 
-[![Training results: sparse vs. dense reward](figures/figure1_ppo_metrics.png)](figures/figure1_ppo_metrics.png)
+[Training results: sparse vs. dense reward]<img width="1289" height="740" alt="figure1_ppo_metrics" src="https://github.com/user-attachments/assets/ad792c08-995f-4016-8c76-a9288cc4da2b" />
 
 ## Key Components, Explained Simply
 
@@ -112,8 +112,6 @@ The exact per-seed training metrics are logged in Weights & Biases: https://wand
 | **Reward normalizer** | keeps scores in a stable range so training doesn't blow up |
 
 ## Training Setup
-
-[#training-setup](#training-setup)
 
 | Setting | Value |
 | --- | --- |
@@ -129,8 +127,6 @@ The exact per-seed training metrics are logged in Weights & Biases: https://wand
 
 ## Tech Stack
 
-[#tech-stack](#tech-stack)
-
 - **Python** — core language for the whole project
 - **PyTorch** — the deep-learning engine everything runs on
 - **Hugging Face Transformers** — loads GPT-2 (writer) and RoBERTa (judge)
@@ -141,40 +137,32 @@ The exact per-seed training metrics are logged in Weights & Biases: https://wand
 
 ## How to Run
 
-[#how-to-run](#how-to-run)
-
 This project runs as a single **Google Colab notebook**.
 
-1. Open **`BabyStories_Dense_NLI_Intervention.ipynb`** in Google Colab.
+1. Open **`dense_coherence_reward_ppo.ipynb`** in Google Colab.
 2. Switch to a GPU runtime: **Runtime → Change runtime type → T4 GPU** (training is very slow on CPU).
-3. Run the cells from top to bottom. They walk through the three stages described above — training the reward model, running PPO for the **dense** and **sparse** conditions across seeds 42/99/7, and evaluating on held-out prompts.
+3. Install the dependencies from the first cells (or run `pip install -r requirements.txt`), then **restart the runtime** before importing.
+4. Run the cells from top to bottom. They walk through the stages described above — loading the RoBERTa coherence reward model from Hugging Face, running PPO for the **dense** and **sparse** conditions across seeds 42/99/7, and evaluating on held-out prompts.
 
-The dependencies install from the first cell (or run `pip install -r requirements.txt`). The full run is light — about **3 GPU-hours** for all six training runs on a free T4.
+The full run is light — about **3 GPU-hours** for all six training runs on a free T4.
 
 ## Dataset
-
-[#dataset](#dataset)
 
 **ROCStories** (Mostafazadeh et al., 2016) — about **50,000 short, five-sentence everyday stories** written by people, each capturing a small slice of commonsense cause-and-effect. The human stories teach the judge what good writing looks like, and their opening lines become the prompts the writer is asked to continue.
 
 ## Use the Trained Reward Model (no training needed)
 
-[#use-the-trained-reward-model](#use-the-trained-reward-model)
-
 The trained judge is available on Hugging Face, so anyone can load it in a few lines:
 
-> ⚠️ **[Add your Hugging Face model link here after you upload the model.]**
+>  **[https://huggingface.co/Paimagham/roberta-story-coherence]**
 
 ```python
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
-
-model = AutoModelForSequenceClassification.from_pretrained("paimagham/roberta-coherence-reward")
-tokenizer = AutoTokenizer.from_pretrained("paimagham/roberta-coherence-reward")
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+tok = AutoTokenizer.from_pretrained("Paimagham/roberta-story-coherence")
+model = AutoModelForSequenceClassification.from_pretrained("Paimagham/roberta-story-coherence")
 ```
 
 ## Honest Limitations
-
-[#honest-limitations](#honest-limitations)
 
 - The improvement is real but **small** — exactly what we would expect at 125M parameters.
 - The reward is a single score per story, not per word — finer-grained feedback is a natural next step.
@@ -182,8 +170,6 @@ tokenizer = AutoTokenizer.from_pretrained("paimagham/roberta-coherence-reward")
 - One random starting seed (123) consistently failed to train and was replaced with seed 99 — noted here for full transparency.
 
 ## About the Paper
-
-[#about-the-paper](#about-the-paper)
 
 This code accompanies the paper *Mitigating the Credit Assignment Problem in Small Language Models via Dense Reward Shaping* (submitted to the NeurIPS 2026 LIGHT Workshop: Deployable Small Foundation Models).
 
@@ -198,14 +184,11 @@ This code accompanies the paper *Mitigating the Credit Assignment Problem in Sma
 
 ## Why I Built This
 
-[#why-i-built-this](#why-i-built-this)
-
 After building a neural network from scratch to understand *how* models learn, I wanted to understand how they learn from **feedback** — the mechanism at the heart of modern AI alignment. Reinforcement learning at a small scale turned out to be a demanding teacher: getting PPO to train stably on a 125M model meant diagnosing and fixing a long chain of subtle failures, from exploding KL divergence to a reward signal that gave the model nothing to learn from. Working through each one gave me a hands-on understanding of reward modeling and training stability — the very things that make today's large language models work — which is exactly why I wanted to build it.
 
 ## License & Contact
 
-[#license--contact](#license--contact)
-
 Released under the **MIT License**.
 
 **SaiBhavitha Reddy Paimagham** · [GitHub](https://github.com/paimagham) · paimaghambhavitha@gmail.com
+
