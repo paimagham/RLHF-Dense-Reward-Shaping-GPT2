@@ -100,7 +100,7 @@ The figure below shows six measurements of the training process over time. The c
 The exact per-seed training metrics are logged in Weights & Biases: https://wandb.ai/sp2984-northern-arizona-university/trl (dense runs: wandering-wood-271, deft-dew-272, clean-puddle-273; sparse runs: amber-dew-274, bumbling-vortex-275, faithful-pine-276; seeds 42/99/7, 90 steps each.)
 
 
-[Training results: sparse vs. dense reward]<img width="1289" height="740" alt="figure1_ppo_metrics" src="https://github.com/user-attachments/assets/ad792c08-995f-4016-8c76-a9288cc4da2b" />
+<img width="1289" height="740" alt="figure1_ppo_metrics" src="https://github.com/user-attachments/assets/ad792c08-995f-4016-8c76-a9288cc4da2b" />
 
 ## Key Components, Explained Simply
 
@@ -154,9 +154,7 @@ The full run is light — about **3 GPU-hours** for all six training runs on a f
 
 ## Use the Trained Reward Model (no training needed)
 
-The trained judge is available on Hugging Face, so anyone can load it in a few lines:
-
->  **[https://huggingface.co/Paimagham/roberta-story-coherence]**
+The trained judge is available on Hugging Face: https://huggingface.co/Paimagham/roberta-story-coherence
 
 ```python
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
